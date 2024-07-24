@@ -4,10 +4,6 @@
 
 This repository contains the BTDig search plugin for qBittorrent, implemented according to the [qBittorrent search plugin guidelines](https://github.com/qbittorrent/search-plugins/wiki/How-to-write-a-search-plugin).
 
-## Bugs
-
-- The number of results returned by the scripts is less than what btdig.com returns, I have to track down why this is happening.
-
 ## Features
 
 - Integrates [BTDig](http://btdig.com) search functionality into qBittorrent
