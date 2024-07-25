@@ -31,12 +31,12 @@ import time
 import gzip
 from io import BytesIO
 from novaprinter import prettyPrinter
+import urllib.parse
 
 class btdig(object):
     url = 'https://www.btdig.com'
     name = 'btdig'
     supported_categories = {'all': '0'}
-
     def search(self, what, cat='all'): 
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0',
@@ -56,7 +56,7 @@ class btdig(object):
             'TE': 'trailers'
         }
 
-        url = f"{self.url}/search?q={urllib.parse.quote(what)}&order=0" # order=0 will order by "relevance"
+        url = f"{self.url}/search?q={what.replace(' ', '+')}&order=0"
         response = self.get_response(urllib.request.Request(url, headers=headers))
 
         results_match = re.search(r'<span style="color:rgb\(100, 100, 100\);padding:2px 10px">(\d+) results found', response)
@@ -70,7 +70,7 @@ class btdig(object):
 
         for page in range(1, total_pages):
             time.sleep(1)  # Sleep for 1 second between requests
-            url = f"{self.url}/search?q={urllib.parse.quote(what)}&p={page}&order=0"
+            url = f"{self.url}/search?q={what.replace(' ', '+')}&p={page}&order=0"
             response = self.get_response(urllib.request.Request(url, headers=headers))
             self.parse_page(response)
 
